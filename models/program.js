@@ -9,4 +9,6 @@ const programSchema = new mongoose.schema({
     goal: String
 })
 
+const Program = mongoose.model("Program", programSchema)
+
 export default Program

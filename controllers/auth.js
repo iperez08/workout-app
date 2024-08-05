@@ -13,7 +13,7 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/logout", (req, res) => {
-    res.session.destroy()
+    req.session.destroy()
     res.redirect("/")
 })
 
@@ -33,7 +33,11 @@ router.post("/register", async (req, res) => {
         const hashPassword = bcrypt.hashSync(req.body.password, 10)
         req.body.password = hashPassword
 
-        await User.create(req.body)
+        const newUser = await User.create(req.body)
+        req.session.user = {
+            username: newUser.username,
+            _id: newUser._id
+        }
         res.redirect("/")
     } catch (error) {
         console.error(error)
@@ -70,11 +74,6 @@ router.post("/login", async (req, res) => {
         console.error(error)
         res.redirect("/")
     }
-})
-
-router.get("/logout", async (req, res) => {
-    req.session.destroy()
-    res.redirect("/")
 })
 
 export default router

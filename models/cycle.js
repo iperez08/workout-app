@@ -18,27 +18,34 @@ const cycleSchema = new mongoose.Schema(
             type: String,
             default: "Not started"
         },
-        workoutAdjustments: [
+        weekAdjustments: [
             {
-                workoutID: {type: mongoose.Schema.Types.ObjectId, ref: "Workout"},
+                weekID: {type: mongoose.Schema.Types.ObjectId, ref: "Week"},
                 deleted: {type: Boolean, default: false},
-                exerciseAdjustments: [
+                workoutAdjustments: [
                     {
-                        exerciseID: {type: mongoose.Schema.Types.ObjectId, ref: "Exercise"},
+                        workoutID: {type: mongoose.Schema.Types.ObjectId, ref: "Workout"},
                         deleted: {type: Boolean, default: false},
-                        setAdjustments: [
+                        exerciseAdjustments: [
                             {
-                                setID: {type: mongoose.Schema.Types.ObjectId, ref: "Set"},
+                                exerciseID: {type: mongoose.Schema.Types.ObjectId, ref: "Exercise"},
                                 deleted: {type: Boolean, default: false},
-                                weight: Number,
-                                reps: Number,
-                                rest: Number,
-                                tempo: String
+                                setAdjustments: [
+                                    {
+                                        setID: {type: mongoose.Schema.Types.ObjectId, ref: "Set"},
+                                        deleted: {type: Boolean, default: false},
+                                        weight: Number,
+                                        reps: Number,
+                                        rest: Number,
+                                        tempo: String
+                                    }
+                                ]
                             }
                         ]
                     }
                 ]
             }
+            
         ]
     }
 )

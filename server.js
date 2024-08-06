@@ -8,11 +8,13 @@ import methodOverride from "method-override"
 import session from "express-session"
 
 import authCtrl from "./controllers/auth.js"
+import programCtrl from "./controllers/program.js"
 
 const port = process.env.PORT || "3000"
 
 mongoose.connect(process.env.MONGODB_URI)
 
+app.use(express.static("contents"))
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"))
 
@@ -31,6 +33,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", authCtrl)
+app.use("/programs", programCtrl)
 
 
 app.listen(port, () => {

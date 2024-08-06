@@ -1,0 +1,19 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+main > div {
+    border-style: solid;
+    width: 33dvw;
+    height: 50dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

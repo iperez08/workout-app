@@ -18,6 +18,10 @@ const cycleSchema = new mongoose.Schema(
             type: String,
             default: "Not started"
         },
+        deadliftTM: {type: Number, min: 0, default: 0},
+        benchPressTM: {type: Number, min: 0, default: 0},
+        squatTM: {type: Number, min: 0, default: 0},
+        overheadPressTM: {type: Number, min: 0, default: 0},
         weekAdjustments: [
             {
                 weekID: {type: mongoose.Schema.Types.ObjectId, ref: "Week"},

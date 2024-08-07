@@ -2,33 +2,24 @@ import mongoose from "mongoose";
 
 const workoutSchema = new mongoose.Schema(
     {
-        name: String,
-        version: String,
-        duration: Number,
-        mobility: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Exercise"
-            }
-        ],
+        workoutName: String,
+        duration: {type: Number, default: 45},
         warmup: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Exercise"
             }
         ],
-        main: [
+        main: 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Exercise"
-            }
-        ],
-        supplemental: [
+            },
+        supplemental: 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Exercise"
-            }
-        ],
+            },
         accessories: [
             {
                 type: mongoose.Schema.Types.ObjectId,

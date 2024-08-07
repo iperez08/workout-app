@@ -1,8 +1,13 @@
 import mongoose from "mongoose"
+import Set from "./set.js"
+import Exercise from "./exercise.js"
+import Workout from "./workout.js"
+import Week from "./week.js"
+
 
 const programSchema = new mongoose.schema(
     {
-        name: String,
+        programName: String,
         weeks: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Week"

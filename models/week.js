@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const weekSchema = new mongoose.Schema(
     {
-        number: Number,
+        weekNumber: Number,
         workouts: [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -12,3 +12,7 @@ const weekSchema = new mongoose.Schema(
         goal: String
     }
 )
+
+const Week = mongoose.model("Week", weekSchema)
+
+export default Week

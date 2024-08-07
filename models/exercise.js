@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const exerciseSchema = new mongoose.Schema(
     {
-        name: String,
+        exerciseName: String,
         muscle: String,
-        othermuscle: String,
+        otherMuscles: [String],
         sets: [
             {
                 type: mongoose.Schema.Types.ObjectId,

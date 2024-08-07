@@ -5,7 +5,7 @@ const setSchema = new mongoose.Schema(
         weight: Number,
         reps: Number,
         rest: Number,
-        tempo: String
+        tempo: {type: String, default: "normal"}
     }
 )
 

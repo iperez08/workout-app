@@ -1,32 +1,35 @@
 import Set from "../set.js"
 import Exercise from "../exercise.js"
 
-// returns an array of *number* objectIDs that reference
-// sets with specificed weights, reps, and rests
-async function createSets(number, weights, reps, rests) {
+// accepts array of objects, and each object represents 1 set 
+// object must have weight, reps, rest
+// returns an array of objectIDs
+async function createSets(setsData) {
     let setsIDs = []
     try {
-        for (let i = 0; i < number; i++) {
-            const newSet = await Set.create(
-                {
-                    weight: weights[i],
-                    reps: reps[i],
-                    rest: rests[i]
-                }
-            )
-            setsIDs.push(newSet._id)
-        }
+        let setInstances = setsData.map(Set.create)
+        const setPromises = await Promise.all(setInstances)
+        setPromises.forEach((promise) => {
+            setsIDs.push(promise._id)
+        })
+        return setsIDs
     } catch (error) {
         console.log(`error creating sets`)
     }
-    return setsIDs
 }
 
-// accepts object with params exerciseName, muscle, otherMuscles,
-// instruction, goal, type, number, weights, reps, rests
+// accepts object with params exerciseName, muscle, 
+// otherMuscles, instruction, goal, setsData
 async function createSingleExercise(exerciseData) {
-    const { exerciseName, muscle, otherMuscles, instruction,
-        goal, type, number, weights, reps, rests } = exerciseData
+    const {
+        exerciseName,
+        muscle,
+        otherMuscles,
+        instruction,
+        goal,
+        // setsData must have weight, reps, and rest
+        setsData
+    } = exerciseData
     try {
         const newExercise = await Exercise.create(
             {
@@ -36,8 +39,9 @@ async function createSingleExercise(exerciseData) {
                 instruction,
                 goal
             })
-        const allSets = await createSets(type, number, weights, reps, rests)
+        const allSets = await createSets(setsData)
         newExercise.sets = allSets
+        newExercise.save()
         return newExercise._id
     } catch (error) {
         console.error(`error creating single exercise: ${error}`)

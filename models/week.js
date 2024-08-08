@@ -9,7 +9,6 @@ const weekSchema = new mongoose.Schema(
                 ref: "Workout"
             }
         ],
-        goal: String
     }
 )
 

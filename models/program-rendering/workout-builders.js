@@ -9,18 +9,35 @@ async function createWorkout(workoutData) {
     const {
         workoutName,
         duration,
-        components
+        goal,
+        // componentdata should have at least componentName and setStructureValues
+        componentsData,
     } = workoutData
-    let allComponentData = []
     try {
-        const newWorkout = await Workout.create({ workoutName, duration })
-        for (let i = 0; i < components.length; i++) {
-            const newComponentData = await createWorkoutComponent(components[i])
-            allComponentData.push(newComponentData)
-        }
-        return allComponentData
+        const newWorkout = await Workout.create(workoutName, duration, goal)
+        let componentsInstances = componentsData.map(createWorkoutComponent)
+        const componentsPromises = await Promise.all(componentsInstances)
+        componentsPromises.forEach((promise) => {
+            let promiseID = promise[0]
+            let promiseName = promise[1]
+            switch (promiseName) {
+                case `warmup`:
+                    newWorkout.warmup.push(promiseID)
+                    newWorkout.save()
+                case `main`:
+                    newWorkout.main = promiseID
+                    newWorkout.save()
+                case `supplemental`:
+                    newWorkout.supplemental = promiseID
+                    newWorkout.save()
+                case `accessories`:
+                    newWorkout.accessories.push(promiseID)
+                    newWorkout.save()
+            }
+        })
+        return newWorkout._id
     } catch (error) {
-        
+        console.log(`error creating workout: ${error}`)
     }
 }
 

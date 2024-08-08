@@ -18,26 +18,28 @@ const cycleSchema = new mongoose.Schema(
             type: String,
             default: "Not started"
         },
-        deadliftTM: {type: Number, min: 0, default: 0},
-        benchPressTM: {type: Number, min: 0, default: 0},
-        squatTM: {type: Number, min: 0, default: 0},
-        overheadPressTM: {type: Number, min: 0, default: 0},
+        trainingMax: [
+            { deadliftTM: { type: Number, min: 0, default: 0 } },
+            { benchPressTM: { type: Number, min: 0, default: 0 } },
+            { squatTM: { type: Number, min: 0, default: 0 } },
+            { overheadPressTM: { type: Number, min: 0, default: 0 } },
+        ],
         weekAdjustments: [
             {
-                weekID: {type: mongoose.Schema.Types.ObjectId, ref: "Week"},
-                deleted: {type: Boolean, default: false},
+                weekID: { type: mongoose.Schema.Types.ObjectId, ref: "Week" },
+                deleted: { type: Boolean, default: false },
                 workoutAdjustments: [
                     {
-                        workoutID: {type: mongoose.Schema.Types.ObjectId, ref: "Workout"},
-                        deleted: {type: Boolean, default: false},
+                        workoutID: { type: mongoose.Schema.Types.ObjectId, ref: "Workout" },
+                        deleted: { type: Boolean, default: false },
                         exerciseAdjustments: [
                             {
-                                exerciseID: {type: mongoose.Schema.Types.ObjectId, ref: "Exercise"},
-                                deleted: {type: Boolean, default: false},
+                                exerciseID: { type: mongoose.Schema.Types.ObjectId, ref: "Exercise" },
+                                deleted: { type: Boolean, default: false },
                                 setAdjustments: [
                                     {
-                                        setID: {type: mongoose.Schema.Types.ObjectId, ref: "Set"},
-                                        deleted: {type: Boolean, default: false},
+                                        setID: { type: mongoose.Schema.Types.ObjectId, ref: "Set" },
+                                        deleted: { type: Boolean, default: false },
                                         weight: Number,
                                         reps: Number,
                                         rest: Number,
@@ -49,7 +51,7 @@ const cycleSchema = new mongoose.Schema(
                     }
                 ]
             }
-            
+
         ]
     }
 )

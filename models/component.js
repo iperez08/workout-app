@@ -3,13 +3,26 @@ import mongoose from "mongoose";
 const componentSchema = new mongoose.Schema(
     {
         componentName: String,
-        setStructure: String,
         exercises: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Exercise"
             }
         ],
+        setStructureValues: [
+            {
+                series: {
+                    type: Number,
+                    default: null
+                },
+            },
+            {
+                rounds: {
+                    type: Array,
+                    default: null
+                }
+            }
+        ]
     }
 )
 

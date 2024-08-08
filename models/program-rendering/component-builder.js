@@ -1,39 +1,45 @@
 import createSingleExercise from "./exercise-builder"
 import Component from "../component";
 
-// accepts a roundCount number and array of exercises 
-// each round has all exercises as a series
-// each element of exercises array is an object with keys that match
-// createSingleExercise parameters
+// accepts a number representing the rounds and an array of exercise objects
 // returns an array of exerciseIDs
-async function createRoundsOfExercises(roundCount, exercises) {
+/* the way its coded returns an array with [roundCount] copies of each exercise */
+/* so do I need to make it so that each exercise has it's own id? */
+async function createRoundsOfExercises(roundsCount, exerciseData) {
     let exerciseIDs = []
     try {
-        for (let i = 0; i < roundCount; i++) {
-            for (let j = 0; j < exercises.length; j++) {
-                const newExerciseID = await createSingleExercise(exercises[j])
-                exerciseIDs.push(newExerciseID)
-            }
+        let exerciseInstances = exerciseData.map(createSingleExercise)
+        const exercisePromises = await Promise.all(exerciseInstances)
+        for (let i = 0; i < roundsCount; i++) {
+            exercisePromises.forEach((promise) => {
+                exerciseIDs.push(promise._id)
+            })
         }
+        return exerciseIDs
     } catch (error) {
         console.error(`error creating rounds of exercises: ${error}`)
     }
     return exerciseIDs
 }
 
-// accepts array of repeats and array of exercises: one-to-one correspondence
+// accepts array of repeats and array of exercises with a one-to-one correspondence
 // creates a series of each exercise in exercises, such that the element in repeats
 // tells you how many times to create each exercise 
 // returns an array of exerciseIDs
-async function createSeriesOfExercises(repeats, exercises) {
+async function createSeriesOfExercises(series, exerciseData) {
     let exerciseIDs = []
     try {
-        for (let i = 0; i < repeats.length; i++) {
-            for (let j = 0; j < repeats[i]; j++) {
-                const newExerciseID = await createSingleExercise(exercises[i])
-                exerciseIDs.push(newExerciseID)
+        let exerciseInstances = []
+        for (let i = 0; i < exerciseData.length; i++) {
+            for (let j = 0; j < series[i]; j++) {
+                exerciseInstances.push(createSingleExercise(exerciseData[i]))
             }
         }
+        const exercisePromises = await Promise.all(exerciseInstances)
+        exercisePromises.forEach((promise) => {
+            exerciseIDs.push(promise._id)
+        })
+        return exerciseIDs
     } catch (error) {
         console.error(`error creating series of exercises: ${error}`)
     }
@@ -46,24 +52,29 @@ async function createSeriesOfExercises(repeats, exercises) {
 async function createWorkoutComponent(componentData) {
     const {
         componentName,
-        setStructure,
-        repeatsOrRounds,
-        exercises
+        exerciseData,
+        // setStructureValues should have series or rounds as null.
+        // if series has data, must be an array
+        // if rounds has data, must be a number
+        setStructureValues,
     } = componentData
     try {
-        const newComponent = await Component.create({ componentName, setStructure })
-        if (setStructure === "series") {
-            const newExerciseIDs = await createSeriesOfExercises(repeatsOrRounds, exercises)
+        const newComponent = await Component.create({ componentName, setStructureValues })
+        if (setStructureValues[0]) {
+            let setStructure = setStructureValues[0]
+            const newExerciseIDs = await createSeriesOfExercises(setStructure.series, exerciseData)
             newComponent.exercises = newExerciseIDs
+            newComponent.save()
         }
-        if (setStructure === "rounds") {
-            const newExerciseIDs = await createRoundsOfExercises(repeatsOrRounds, exercises)
+        if (setStructureValues[1]) {
+            let setStructure = setStructureValues[1]
+            const newExerciseIDs = await createRoundsOfExercises(setStructure.rounds, exerciseData)
             newComponent.exercises = newExerciseIDs
+            newComponent.save()
         }
         return [newComponent._id, newComponent.componentName]
     } catch (error) {
         console.error(`error creating workout component: ${error}`)
     }
 }
-
 export default createWorkoutComponent

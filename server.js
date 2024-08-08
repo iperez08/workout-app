@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", authCtrl)
+app.use("/users", userCtrl)
 app.use("/programs", programCtrl)
 
 app.listen(port, () => {

@@ -1,13 +1,11 @@
 import createWorkout from "./workout-builders";
 import Week from "../../models/week.js"
 
-// accepts object with weekNumber
-async function createWeek(weekData) {
-    const {
-        weekNumber,
-    } = weekData
+async function createWeek(weekNumber) {
     try {
-        const newWeek = await Week.create({ weekNumber })
+        const newWeek = await Week.create()
+        newWeek.weekNumber = weekNumber
+        newWeek.save()
         return newWeek._id
     } catch (error) {
         console.log(`error creating week: ${error}`)

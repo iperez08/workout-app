@@ -35,7 +35,6 @@ app.get("/", (req, res) => {
 app.use("/auth", authCtrl)
 app.use("/programs", programCtrl)
 
-
 app.listen(port, () => {
     console.log(`Express app is ready on port ${port}.`)
 })

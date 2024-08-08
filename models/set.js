@@ -1,11 +1,14 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const setSchema = new mongoose.Schema(
     {
         weight: Number,
         reps: Number,
         rest: Number,
-        tempo: {type: String, default: "normal"}
+        tempo: {
+            type: String,
+            default: "normal"
+        }
     }
 )
 

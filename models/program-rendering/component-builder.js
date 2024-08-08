@@ -52,29 +52,36 @@ async function createSeriesOfExercises(series, exerciseData) {
 async function createWorkoutComponent(componentData) {
     const {
         componentName,
-        exerciseData,
-        // setStructureValues should have series or rounds as null.
-        // if series has data, must be an array
-        // if rounds has data, must be a number
-        setStructureValues,
     } = componentData
     try {
-        const newComponent = await Component.create({ componentName, setStructureValues })
-        if (setStructureValues[0]) {
-            let setStructure = setStructureValues[0]
-            const newExerciseIDs = await createSeriesOfExercises(setStructure.series, exerciseData)
-            newComponent.exercises = newExerciseIDs
-            newComponent.save()
-        }
-        if (setStructureValues[1]) {
-            let setStructure = setStructureValues[1]
-            const newExerciseIDs = await createRoundsOfExercises(setStructure.rounds, exerciseData)
-            newComponent.exercises = newExerciseIDs
-            newComponent.save()
-        }
+        const newComponent = await Component.create({ componentName })
         return [newComponent._id, newComponent.componentName]
     } catch (error) {
         console.error(`error creating workout component: ${error}`)
     }
 }
-export default createWorkoutComponent
+
+// accepts componentID and array of objects (setStructureValues)
+// setStructureValues should have series or rounds as null.
+// if series has data, must be an array
+// if rounds has data, must be a number
+async function updateComponentWithStructureAndExercise(componentID, setStructureValues, exerciseBaseData) {
+    try {
+        const componentInDatabase = await Component.find({componentID})
+        if (setStructureValues[0]) {
+            let setStructure = setStructureValues[0]
+            const newExerciseIDs = await createSeriesOfExercises(setStructure.series, exerciseBaseData)
+            componentInDatabase.exercises = newExerciseIDs
+            componentInDatabase.save()
+        }
+        if (setStructureValues[1]) {
+            let setStructure = setStructureValues[1]
+            const newExerciseIDs = await createRoundsOfExercises(setStructure.rounds, exerciseBaseData)
+            componentInDatabase.exercises = newExerciseIDs
+            componentInDatabase.save()
+        }
+    } catch (error) {
+        console.log(`error updating component with set structure and ${exerciseBaseData.length} exercises: ${error}`)
+    }
+}
+export {createWorkoutComponent, updateComponentWithStructureAndExercise}

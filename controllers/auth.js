@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
         })
         if (!user) {
             return res.send("User does not exist. Check spelling if necessary.")
-        } 
+        }
 
         const validPassword = bcrypt.compareSync(
             req.body.password,
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
             _id: user._id
         }
 
-        res.redirect("/")
+        res.redirect(`users/home`)
 
     } catch (error) {
         console.error(error)

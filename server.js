@@ -8,8 +8,8 @@ import methodOverride from "method-override"
 import session from "express-session"
 
 import authCtrl from "./controllers/auth.js"
-import userCtrl from "./controllers/user.js"
 import programCtrl from "./controllers/program.js"
+import userCtrl from "./controllers/user.js"
 
 const port = process.env.PORT || "3000"
 
@@ -28,13 +28,10 @@ app.use(
 )
 
 app.get("/", (req, res) => {
-    res.render("user/home.ejs", {
-        user: req.session.user
-    })
+    res.render("landing.ejs")
 })
 
 app.use("/auth", authCtrl)
-app.use("/users", userCtrl)
 app.use("/programs", programCtrl)
 
 app.listen(port, () => {

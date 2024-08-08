@@ -4,12 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="index.css" rel="stylesheet">
-  <title>Home Page</title>
+  <link href="/three-column.css" rel="stylesheet">
+  <title><%= user.username %> Dashbaord</title>
 </head>
 
 <body>
-  <% if (user) { %>
     <div>
       <a href="/auth/logout">Logout</a>
     </div>
@@ -26,13 +25,7 @@
         <button type="submit" ><a href="/programs/index">Start New Program</a></button>
       </div>
     </main>
-    <% } else { %>
-      <h1>Welcome to the app, guest.</h1>
-      <p>
-        <a href="/auth/register">Register</a> or
-        <a href="/auth/login">Login</a>.
-      </p>
-      <% } %>
 </body>
 
 </html>
+

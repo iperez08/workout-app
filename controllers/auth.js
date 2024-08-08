@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
             _id: user._id
         }
 
-        res.redirect(`users/home`)
+        res.redirect(`/user/dashboard`)
 
     } catch (error) {
         console.error(error)

@@ -3,9 +3,7 @@ import Week from "../../models/week.js"
 
 async function createWeek(weekNumber) {
     try {
-        const newWeek = await Week.create()
-        newWeek.weekNumber = weekNumber
-        newWeek.save()
+        const newWeek = await Week.create({ weekNumber })
         return newWeek._id
     } catch (error) {
         console.log(`error creating week: ${error}`)
@@ -16,7 +14,7 @@ async function createWeek(weekNumber) {
 // each object should have workoutName and duration
 async function updateWeekWithWorkouts(weekID, workoutsBaseData) {
     try {
-        const weekInDatabase = await Week.find({ weekID })
+        const weekInDatabase = await Week.findById(weekID)
         let workoutsPromises = workoutsBaseData.map(createWorkout)
         const workouts = await Promise.all(workoutsPromises)
         workouts.forEach((promise) => {

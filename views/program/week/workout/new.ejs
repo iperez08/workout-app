@@ -4,32 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Workouts & Components</title>
 </head>
 
 <body>
-    <h1>Click on a workout to learn more</h1>
-    <div class="goal" id="week">
-        <p>What is the goal?</p>
-        <p>What's the duration?</p>
-    </div>
+    <h1>Breakdown of Exercises by Workout and Component</h1>
+    <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload. Aside
+        from those three parts, the workouts will look the same each week.
+        <br><br>
+        Let's continue by choosing which exercises we'll complete in each component.
+    </h3>
     <main>
-        <div>
-            Workout 1
-            <button type="submit"><a href="">Learn More</a></button>
-        </div>
-        <div>
-            Workout 2
-            <button type="submit"><a href="">Learn More</a></button>
-        </div>
-        <div>
-            Workout 3
-            <button type="submit"><a href="">Learn More</a></button>
-        </div>
-        <div>
-            Workout 4
-            <button type="submit"><a href="">Learn More</a></button>
-        </div>
+        <form>
+            <section>
+                <div>
+                    <!-- let workoutOne = week.workouts[0].workoutName -->
+                    workoutName (default Squat)
+                </div>
+                <div>
+                    <p>Warm Up</p>
+                    <input type="checkbox" id="warmup" name="componentName" value="warmup" />
+                    <label for="warmup">Warm Up</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="main" name="componentName" value="main" />
+                    <label for="main">Main Lift</label>
+                  </div>
+                <div>
+                    Main exercise
+                </div>
+                <div>
+                    Supplemental exercises
+                </div>
+                <div>
+                    Accessories exercise
+                </div>
+            </section>
+            <section>
+                <div>
+                    <!-- week.workouts[1].workoutName -->
+                    workoutName (default bench press)
+                </div>
+            </section>
+            <section>
+                <div>
+                    <!-- week.workouts[2].workoutName -->
+                    workoutName (default deadline)
+                </div>
+            </section>
+            <section>
+                <div>
+                    <!-- week.workouts[3].workoutName -->
+                    workoutName (default overhead press)
+                </div>
+            </section>
+        </form>
     </main>
 </body>
 

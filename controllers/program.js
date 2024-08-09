@@ -1,7 +1,8 @@
 import express from "express"
 const router = express.Router()
-import User from "../models/user.js"
+import Week from "../models/week.js"
 import { createProgram, updateProgramWithWeeks } from "../models/program-rendering/program-builder.js"
+import { createWeek } from "../models/program-rendering/week-builder.js"
 
 router.use(express.urlencoded({ extended: false }))
 
@@ -16,14 +17,23 @@ router.get("/new", async (req, res) => {
 })
 
 router.post("/new", async (req, res) => {
-    const {
-        
-    } = req.body
-}) 
+    const {programName, goal, numberOfWeeks} = req.body
+        let weeksCount = parseInt(numberOfWeeks)
+        const programBaseData = { programName, goal }
+        const newProgramID = await createProgram(programBaseData)
+        const weekOneID = await updateProgramWithWeeks(newProgramID, weeksCount)
+        console.log(`${JSON.stringify(req.body)}`)
+        try {
+            res.redirect(`/programs/${newProgramID}/weeks/${weekOneID}/new`)
+        } catch (error) {
+        console.log(`error rendering page`)
+    }
+})
 
 // show a specific program, which shows you the index of weeks in the program
-router.get("/:programID/weeks/index", async (req, res) => {
-    res.render("program/week/index.ejs")
+router.get("/:programID/weeks/:weekID/new", async (req, res) => {
+    const week = await Week.findById(req.params.weekID)
+    res.render("program/week/new.ejs")
 })
 
 // create a new week

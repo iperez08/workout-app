@@ -67,7 +67,7 @@ async function createWorkoutComponent(componentData) {
 // if rounds has data, must be a number
 async function updateComponentWithStructureAndExercise(componentID, setStructureValues, exerciseBaseData) {
     try {
-        const componentInDatabase = await Component.findById({ componentID })
+        const componentInDatabase = await Component.findById(componentID)
         if (setStructureValues[0]) {
             let setStructure = setStructureValues[0]
             const newExerciseIDs = await createSeriesOfExercises(setStructure.series, exerciseBaseData)

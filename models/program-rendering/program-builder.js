@@ -10,26 +10,27 @@ async function createProgram(programBaseData) {
     } = programBaseData
     try {
         const newProgram = await Program.create({ programName, goal })
-        return newProgram
+        return newProgram._id
     } catch (error) {
         console.log(`error creating program: ${error}`)
     }
 }
 
-// accepts programID and array of objects
+// accepts programID and a number
 // objects should have weekNumber
 async function updateProgramWithWeeks(programID, weeksCount) {
     try {
-        const programInDatabase = await Program.find({ programID })
-        let weeksPromises
+        const programInDatabase = await Program.findById(programID)
+        let weeksPromises = []
         for (let i = 0; i < weeksCount; i++) {
             weeksPromises.push(createWeek(i + 1))
         }
-        const weeks = await Promise.all(weeksPromises)
-        weeks.forEach((promise) => {
-            programInDatabase.weeks.push(promise)
-            programInDatabase.save()
+        let weekIDs = await Promise.all(weeksPromises)
+        weekIDs.forEach((weekID) => {
+            programInDatabase.weeks.push(weekID._id)
         })
+        programInDatabase.save()
+        return weekIDs[0]._id
     } catch (error) {
         console.log(`error updating program with ${weeksBaseData.length} weeks: ${error}`)
     }

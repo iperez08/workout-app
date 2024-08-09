@@ -19,7 +19,7 @@ async function createWorkout(workoutData) {
 // each object should have componentName
 async function updateWorkoutWithComponents(workoutID, componentsBaseData) {
     try {
-        const workoutInDatabase = Workout.find({ workoutID })
+        const workoutInDatabase = Workout.findById(workoutID)
         let componentsPromises = componentsBaseData.map(createWorkoutComponent)
         const components = await Promise.all(componentsPromises)
         components.forEach((component) => {

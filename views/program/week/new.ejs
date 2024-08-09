@@ -2,35 +2,152 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Program</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workouts & Components</title>
 </head>
 
 <body>
-<h1>Program Layout</h1>
-<div class="goal" id="program">
-    <p>What is the goal?</p>
-    <p>What's the duration?</p>
-</div>
-<main>
-    <div>
-        Week 1
-        <button type="submit"><a href="/programs/weeks/workouts/index">Learn More</a></button>
-    </div>
-    <div>
-        Week 2
-        <button type="submit"><a href="/programs/weeks/workouts/index">Learn More</a></button>
-    </div>
-    <div>
-        Week 3
-        <button type="submit"><a href="/programs/weeks/workouts/index">Learn More</a></button>
-    </div>
-    <div>
-        Week 4
-        <button type="submit"><a href="/programs/weeks/workouts/index">Learn More</a></button>
-    </div>
-</main>
+  <h1>Breakdown of Workouts & Components by week</h1>
+  <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload. Aside
+    from those three parts, the workouts will look the same each week.
+    <br><br>
+    Let's start by choosing a workout, desired duration, and what components each workout will have.
+  </h3>
+
+  <form>
+    <main>
+      <section>
+        <div>
+          <label for="workoutName">Choose a workout:</label>
+          <select name="workoutName" id="dayOne">
+            <option value="Squat">Squat</option>
+            <option value="Deadlift">Deadlift</option>
+            <option value="Bench Press">Bench Press</option>
+            <option value="Overhead Press">Overhead Press</option>
+          </select>
+        </div>
+        <div>
+          <label for="duration">How much time are you able workout?</label>
+          <input type="number" id="duration" name="duration" required min="1">
+        </div>
+        <div>
+          <p>Which components do you want in your workout?</p>
+          <input type="checkbox" id="warmup" name="componentName" value="warmup" />
+          <label for="warmup">Warm Up</label>
+        </div>
+        <div>
+          <input type="checkbox" id="main" name="componentName" value="main" />
+          <label for="main">Main Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="supplemental" name="componentName" value="supplemental" />
+          <label for="supplemental">Supplemental Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="accessories" name="componentName" value="accessories" />
+          <label for="accessories">Accessories</label>
+        </div>
+      </section>
+      <section>
+        <div>
+          <label for="workoutName">Choose a workout:</label>
+          <select name="workoutName" id="dayTwo">
+            <option value="Deadlift">Deadlift</option>
+            <option value="Bench Press">Bench Press</option>
+            <option value="Overhead Press">Overhead Press</option>
+            <option value="Squat">Squat</option>
+          </select>
+        </div>
+        <div>
+          <label for="duration">How much time are you able workout?</label>
+          <input type="number" id="duration" name="duration" required min="1">
+        </div>
+        <div>
+          <p>Which components do you want in your workout?</p>
+          <input type="checkbox" id="warmup" name="componentName" value="warmup" />
+          <label for="warmup">Warm Up</label>
+        </div>
+        <div>
+          <input type="checkbox" id="main" name="componentName" value="main" />
+          <label for="main">Main Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="supplemental" name="componentName" value="supplemental" />
+          <label for="supplemental">Supplemental Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="accessories" name="componentName" value="accessories" />
+          <label for="accessories">Accessories</label>
+        </div>
+      </section>
+      <section>
+        <div>
+          <label for="workoutName">Choose a workout:</label>
+          <select name="workoutName" id="dayThree">
+            <option value="Bench Press">Bench Press</option>
+            <option value="Overhead Press">Overhead Press</option>
+            <option value="Squat">Squat</option>
+            <option value="Deadlift">Deadlift</option>
+          </select>
+        </div>
+        <div>
+          <label for="duration">How much time are you able workout?</label>
+          <input type="number" id="duration" name="duration" required min="1">
+        </div>
+        <div>
+          <p>Which components do you want in your workout?</p>
+          <input type="checkbox" id="warmup" name="componentName" value="warmup" />
+          <label for="warmup">Warm Up</label>
+        </div>
+        <div>
+          <input type="checkbox" id="main" name="componentName" value="main" />
+          <label for="main">Main Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="supplemental" name="componentName" value="supplemental" />
+          <label for="supplemental">Supplemental Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="accessories" name="componentName" value="accessories" />
+          <label for="accessories">Accessories</label>
+        </div>
+      </section>
+      <section>
+        <div>
+          <label for="workoutName">Choose a workout:</label>
+          <select name="workoutName" id="dayFour">
+            <option value="Overhead Press">Overhead Press</option>
+            <option value="Squat">Squat</option>
+            <option value="Deadlift">Deadlift</option>
+            <option value="Bench Press">Bench Press</option>
+          </select>
+        </div>
+        <div>
+          <label for="duration">How much time are you able workout?</label>
+          <input type="number" id="duration" name="duration" required min="1">
+        </div>
+        <div>
+          <p>Which components do you want in your workout?</p>
+          <input type="checkbox" id="warmup" name="componentName" value="warmup" />
+          <label for="warmup">Warm Up</label>
+        </div>
+        <div>
+          <input type="checkbox" id="main" name="componentName" value="main" />
+          <label for="main">Main Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="supplemental" name="componentName" value="supplemental" />
+          <label for="supplemental">Supplemental Lift</label>
+        </div>
+        <div>
+          <input type="checkbox" id="accessories" name="componentName" value="accessories" />
+          <label for="accessories">Accessories</label>
+        </div>
+      </section>
+    </main>
+    <button type="submit">Done with Edits</button>
+  </form>
 </body>
 
 </html>

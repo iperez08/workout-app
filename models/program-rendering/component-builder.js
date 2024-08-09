@@ -1,5 +1,5 @@
-import createSingleExercise from "./exercise-builder"
-import Component from "../component";
+import createSingleExercise from "./exercise-builder.js"
+import Component from "../component.js";
 
 // accepts a number representing the rounds and an array of exercise objects
 // returns an array of exerciseIDs
@@ -8,11 +8,11 @@ import Component from "../component";
 async function createRoundsOfExercises(roundsCount, exerciseData) {
     let exerciseIDs = []
     try {
-        let exerciseInstances = exerciseData.map(createSingleExercise)
-        const exercisePromises = await Promise.all(exerciseInstances)
+        let exercisePromises = exerciseData.map(createSingleExercise)
+        const exercises = await Promise.all(exercisePromises)
         for (let i = 0; i < roundsCount; i++) {
-            exercisePromises.forEach((promise) => {
-                exerciseIDs.push(promise._id)
+            exercises.forEach((exercise) => {
+                exerciseIDs.push(exercise._id)
             })
         }
         return exerciseIDs
@@ -29,15 +29,15 @@ async function createRoundsOfExercises(roundsCount, exerciseData) {
 async function createSeriesOfExercises(series, exerciseData) {
     let exerciseIDs = []
     try {
-        let exerciseInstances = []
+        let exercisePromises = []
         for (let i = 0; i < exerciseData.length; i++) {
             for (let j = 0; j < series[i]; j++) {
-                exerciseInstances.push(createSingleExercise(exerciseData[i]))
+                exercisePromises.push(createSingleExercise(exerciseData[i]))
             }
         }
-        const exercisePromises = await Promise.all(exerciseInstances)
-        exercisePromises.forEach((promise) => {
-            exerciseIDs.push(promise._id)
+        const exercises = await Promise.all(exercisePromises)
+        exercises.forEach((exercise) => {
+            exercises.push(exercise._id)
         })
         return exerciseIDs
     } catch (error) {
@@ -67,7 +67,7 @@ async function createWorkoutComponent(componentData) {
 // if rounds has data, must be a number
 async function updateComponentWithStructureAndExercise(componentID, setStructureValues, exerciseBaseData) {
     try {
-        const componentInDatabase = await Component.find({componentID})
+        const componentInDatabase = await Component.findById({ componentID })
         if (setStructureValues[0]) {
             let setStructure = setStructureValues[0]
             const newExerciseIDs = await createSeriesOfExercises(setStructure.series, exerciseBaseData)
@@ -84,4 +84,4 @@ async function updateComponentWithStructureAndExercise(componentID, setStructure
         console.log(`error updating component with set structure and ${exerciseBaseData.length} exercises: ${error}`)
     }
 }
-export {createWorkoutComponent, updateComponentWithStructureAndExercise}
+export { createWorkoutComponent, updateComponentWithStructureAndExercise }

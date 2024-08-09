@@ -7,12 +7,20 @@
 </head>
 <body>
     <h1>Create your own program!</h1>
-    form code for 3 pieces of information: 
-    each piece of information has its own div
-    each div has 1 label and 1 input
-    each label has a for="" that matches the piece of information
-    each input has a type matches the type of information you would expect
-    each input has a name="" that matches the piece of information
-    each input has an id="" that matches the label for=""
+    <form action="/new" method="post">
+        <div>
+            <label for="programName">What do you want to call your program?</label>
+            <input type="text" id="programName" name="programName" required>
+        </div>
+        <div>
+            <label for="goal">What is the goal of this program?</label>
+            <input type="area" id="goal" name="goal" required>
+        </div>
+        <div>
+            <label for="numberOfWeeks">Number of Weeks:</label>
+            <input type="number" id="numberOfWeeks" name="numberOfWeeks" required min="1">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

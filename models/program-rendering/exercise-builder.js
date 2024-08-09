@@ -7,10 +7,10 @@ import Exercise from "../exercise.js"
 async function createSets(setsData) {
     let setsIDs = []
     try {
-        let setInstances = setsData.map(Set.create)
-        const setPromises = await Promise.all(setInstances)
-        setPromises.forEach((promise) => {
-            setsIDs.push(promise._id)
+        let setPromises = setsData.map(Set.create)
+        const allSets = await Promise.all(setPromises)
+        allSets.forEach((set) => {
+            setsIDs.push(set._id)
         })
         return setsIDs
     } catch (error) {
@@ -41,7 +41,7 @@ async function createSingleExercise(exerciseData) {
             })
         const allSets = await createSets(setsData)
         newExercise.sets = allSets
-        newExercise.save()
+        await newExercise.save()
         return newExercise._id
     } catch (error) {
         console.error(`error creating single exercise: ${error}`)

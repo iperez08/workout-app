@@ -1,6 +1,5 @@
-import createWeek from "./week-builder";
+import { createWeek } from "./week-builder.js";
 import Program from "../program.js"
-import Week from "../week.js"
 
 // accepts object with programName and goal
 // returns program instance
@@ -22,12 +21,12 @@ async function createProgram(programBaseData) {
 async function updateProgramWithWeeks(programID, weeksCount) {
     try {
         const programInDatabase = await Program.find({ programID })
-        let weeksInstances
+        let weeksPromises
         for (let i = 0; i < weeksCount; i++) {
-            weeksInstances.push(createWeek(i + 1))
+            weeksPromises.push(createWeek(i + 1))
         }
-        const weeksPromises = await Promise.all(weeksInstances)
-        weeksPromises.forEach((promise) => {
+        const weeks = await Promise.all(weeksPromises)
+        weeks.forEach((promise) => {
             programInDatabase.weeks.push(promise)
             programInDatabase.save()
         })

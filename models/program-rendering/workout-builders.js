@@ -1,4 +1,4 @@
-import createWorkoutComponent from "./component-builder";
+import { createWorkoutComponent } from "./component-builder.js";
 import Workout from "../workout.js"
 
 // accepts object with workoutName and duration
@@ -20,24 +20,30 @@ async function createWorkout(workoutData) {
 async function updateWorkoutWithComponents(workoutID, componentsBaseData) {
     try {
         const workoutInDatabase = Workout.find({ workoutID })
-        let componentsInstances = componentsBaseData.map(createWorkoutComponent)
-        const componentsPromises = await Promise.all(componentsInstances)
-        componentsPromises.forEach((promise) => {
-            let promiseID = promise[0]
-            let promiseName = promise[1]
-            switch (promiseName) {
+        let componentsPromises = componentsBaseData.map(createWorkoutComponent)
+        const components = await Promise.all(componentsPromises)
+        components.forEach((component) => {
+            let componentID = component[0]
+            let componentName = component[1]
+            switch (componentName) {
                 case `warmup`:
-                    workoutInDatabase.warmup.push(promiseID)
+                    workoutInDatabase.warmup.push(componentID)
                     workoutInDatabase.save()
+                    break
                 case `main`:
-                    workoutInDatabase.main = promiseID
+                    workoutInDatabase.main = componentID
                     workoutInDatabase.save()
+                    break
                 case `supplemental`:
-                    workoutInDatabase.supplemental = promiseID
+                    workoutInDatabase.supplemental = componentID
                     workoutInDatabase.save()
+                    break
                 case `accessories`:
-                    workoutInDatabase.accessories.push(promiseID)
+                    workoutInDatabase.accessories.push(componentID)
                     workoutInDatabase.save()
+                    break
+                default:
+                    console.log(`Error with componentName`)
             }
         })
     } catch (error) {

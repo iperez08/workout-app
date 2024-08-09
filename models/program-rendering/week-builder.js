@@ -1,4 +1,4 @@
-import createWorkout from "./workout-builders";
+import { createWorkout } from "./workout-builders.js";
 import Week from "../../models/week.js"
 
 async function createWeek(weekNumber) {
@@ -17,9 +17,9 @@ async function createWeek(weekNumber) {
 async function updateWeekWithWorkouts(weekID, workoutsBaseData) {
     try {
         const weekInDatabase = await Week.find({ weekID })
-        let workoutsInstances = workoutsBaseData.map(createWorkout)
-        const workoutsPromises = await Promise.all(workoutsInstances)
-        workoutsPromises.forEach((promise) => {
+        let workoutsPromises = workoutsBaseData.map(createWorkout)
+        const workouts = await Promise.all(workoutsPromises)
+        workouts.forEach((promise) => {
             weekInDatabase.workouts.push(promise)
             weekInDatabase.save()
         })

@@ -1,6 +1,9 @@
 import express from "express"
 const router = express.Router()
 import User from "../models/user.js"
+import { createProgram, updateProgramWithWeeks } from "../models/program-rendering/program-builder.js"
+
+router.use(express.urlencoded({ extended: false }))
 
 // see all program templates and create new program feature
 router.get("/index", async (req, res) => {
@@ -11,6 +14,12 @@ router.get("/index", async (req, res) => {
 router.get("/new", async (req, res) => {
     res.render("program/new.ejs")
 })
+
+router.post("/new", async (req, res) => {
+    const {
+        
+    } = req.body
+}) 
 
 // show a specific program, which shows you the index of weeks in the program
 router.get("/:programID/weeks/index", async (req, res) => {

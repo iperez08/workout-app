@@ -1,11 +1,6 @@
 import mongoose from "mongoose"
-import Set from "./set.js"
-import Exercise from "./exercise.js"
-import Workout from "./workout.js"
-import Week from "./week.js"
 
-
-const programSchema = new mongoose.schema(
+const programSchema = new mongoose.Schema(
     {
         programName: String,
         weeks: [{

@@ -3,37 +3,36 @@ const router = express.Router()
 import User from "../models/user.js"
 
 router.get(`/:userID/dashboard`, async (req, res) => {
-    const user = await User.findById(req.params.userID)
+    const userID = req.params.userID
     res.render("user/dashboard.ejs", {
-        user
+        userID
     })
 })
 
 router.get("/:userID/show", async (req, res) => {
-    const user = await User.findById(req.params.userID)
-    console.log(user)
+    const userID = req.params.userID
     res.render("user/show.ejs", {
-        user
+        userID
     })
 })
 
 router.get("/:userID/delete", async (req, res) => {
-    const user = await User.findById(req.params.userID)
+    const userID = req.params.userID
     await User.findByIdAndDelete(user._id)
     res.render("/")
 })
 
 router.get("/:userID/goals/show", async (req, res) => {
-    const user = await User.findById(req.params.userID)
+    const userID = req.params.userID
     res.render("user/goal/show.ejs", {
-        user
+        userID
     })
 })
 
 router.get("/:userID/goals/edit", async (req, res) => {
-    const user = await User.findById(req.params.userID)
+    const userID = req.params.userID
     res.render("user/goal/edit.ejs", {
-        user
+        userID
     })
 })
 
@@ -51,9 +50,9 @@ router.post("/:userID/goals/edit", async (req, res) => {
 })
 
 router.get("/:userID/goals/new", async (req, res) => {
-    const user = await User.findById(req.params.userID)
+    const userID = req.params.userID
     res.render("user/goal/new.ejs", {
-        user
+        userID
     })
 })
 

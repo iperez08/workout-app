@@ -44,6 +44,7 @@ router.get(`/:programID/weeks/:weekID/workouts/new`, async (req, res) => {
 
 router.post(`/:programID/weeks/:weekID/workouts/new`, async (req, res) => {
     const { workouts } = req.body
+    console.log(workouts)
     let allWorkoutBaseData = []
     let allComponentNames = []
     const program = await Program.findById(req.params.programID)
@@ -90,7 +91,9 @@ router.get('/:programID/weeks/workouts/exercises/new', async (req, res) => {
 })
 
 router.post('/:programID/weeks/workouts/exercises/new', async (req, res) => {
-    
+    const { workouts } = req.body
+    console.log( workouts )
+    res.send(`this is all of the data for the mainframe: ${JSON.stringify(workouts)}`)
 }
 
 )

@@ -32,7 +32,7 @@
                                 <% groupsOfExercises[0].forEach((exercise)=> { %>
                                     <div>
                                         <input type="checkbox" checked id="<%= workout.workoutName %>_warmup_exercise"
-                                            name="workouts[<%= workout.workoutName %>][warmup][exercises][]"
+                                            name="workouts[<%= workout.workoutName %>][warmup][]"
                                             value="<%= exercise %>" />
                                         <label for="<%= workout.workoutName %>_warmup_exercise">
                                             <%= exercise %>
@@ -44,7 +44,7 @@
                                 <div for="<%= workout.workoutName %>_main_exercise">Choose Main Exercise:</div>
                                 <div>
                                     <input type="checkbox" checked id="<%= workout.workoutName %>_main_exercise"
-                                        name="workouts[<%= workout.workoutName %>][main][exercises][]"
+                                        name="workouts[<%= workout.workoutName %>][main][]"
                                         value=<%=mainExercises[idx] %>/>
                                     <label for="<%= workout.workoutName %>_main_exercise">
                                         <%= mainExercises[idx] %>
@@ -55,16 +55,16 @@
                                 <div for="<%= workout.workoutName %>_supplemental_exercise">Choose Supplemental
                                     Exercise:</div>
                                 <div>
-                                    <input type="checkbox" checked id="<%= workout.workoutName %>_main_exercise"
-                                        name="workouts[<%= workout.workoutName %>][main][exercises][]"
+                                    <input type="checkbox" checked id="<%= workout.workoutName %>_supplemental_exercise"
+                                        name="workouts[<%= workout.workoutName %>][supplemental][]"
                                         value=<%=mainExercises[idx] %>/>
-                                    <label for="<%= workout.workoutName %>_main_exercise">
+                                    <label for="<%= workout.workoutName %>_supplemental_exercise">
                                         <%= mainExercises[idx] %>
                                     </label>
                                 </div>
                                 <div>
                                     <input type="checkbox" checked id="<%= workout.workoutName %>_supplemental_exercise"
-                                        name="workouts[<%= workout.workoutName %>][supplemental][exercises][]"
+                                        name="workouts[<%= workout.workoutName %>][supplemental][]"
                                         value=<%=supplementalExercises[idx] %>/>
                                     <label for="<%= workout.workoutName %>_supplemental_exercise">
                                         <%= supplementalExercises[idx] %>
@@ -78,7 +78,7 @@
                                     <div>
                                         <input type="checkbox" checked
                                             id="<%= workout.workoutName %>_accessories_exercise"
-                                            name="workouts[<%= workout.workoutName %>][accessories][exercises][]"
+                                            name="workouts[<%= workout.workoutName %>][accessories][]"
                                             value="<%= exercise %>" />
                                         <label for="<%= workout.workoutName %>_accessories_exercise">
                                             <%= exercise %>

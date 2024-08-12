@@ -2,7 +2,6 @@ import express from "express"
 const router = express.Router()
 import User from "../models/user.js"
 
-
 router.get(`/:userID/dashboard`, async (req, res) => {
     const user = await User.findById(req.params.userID)
     res.render("user/dashboard.ejs", {

@@ -10,8 +10,9 @@
 </head>
 
 <body>
+    <%- include("../partials/header.ejs")%>
         <h1>Create your own program!</h1>
-        <form action="/programs/new" method="post">
+        <form action="/user/<%= user._id %>/programs/new" method="post">
             <main>
                 <div class="grid-item">
                     <div class="subpart">

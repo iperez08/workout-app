@@ -10,10 +10,11 @@
 </head>
 
 <body>
+    <%- include("../partials/header.ejs")%>
         <main>
             <div class="grid-item">
                 <div class="subpart">
-                    <a href="/programs/show">Program #</a>
+                    <a href="/user/<%= user._id %>/programs/show">Program #</a>
                 </div>
                 <div class="subpart">
                     Quick Info

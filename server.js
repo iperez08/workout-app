@@ -8,16 +8,15 @@ import methodOverride from "method-override"
 import session from "express-session"
 
 import authCtrl from "./controllers/auth.js"
-import programCtrl from "./controllers/program.js"
 import userCtrl from "./controllers/user.js"
-import User from "./models/user.js"
+import programCtrl from "./controllers/program.js"
 
 const port = process.env.PORT || "3000"
 
 mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.static("contents"))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"))
 
 app.use(
@@ -32,30 +31,9 @@ app.get("/", (req, res) => {
     res.render("landing.ejs")
 })
 
-app.get("/:userID/cycles/show", async (req, res) => {
-    const user = await User.findById(req.params.userID)
-    res.render("cycle/show.ejs", {
-        user
-    })
-})
-
-app.get("/:userID/cycles/index", async (req, res) => {
-    const user = await User.findById(req.params.userID)
-    res.render("cycle/index.ejs", {
-        user
-    })
-})
-
-app.get("/:userID/cycles/weeks/workouts/show", async (req, res) => {
-    const user = await User.findById(req.params.userID)
-    res.render("cycle/workout/show.ejs", {
-        user
-    })
-})
-
 app.use("/auth", authCtrl)
-app.use("/user", userCtrl)
-app.use("/:userID/programs", programCtrl)
+app.use('/user', programCtrl)
+app.use('/user', userCtrl)
 
 app.listen(port, () => {
     console.log(`Express app is ready on port ${port}.`)

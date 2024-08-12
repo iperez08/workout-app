@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <%- include("../../../../partials/header.ejs")%>
         <h1>Breakdown of Exercises by Components </h1>
         <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload.
             Aside from those three parts, the workouts will look the same each week.
@@ -18,7 +19,7 @@
             Let's continue by choosing exercises for each component. Again, these exercises will stay the same
             throughtout the entire cycle.
         </h3>
-        <form action="/programs/<%= programID %>/weeks/workouts/exercises/new" method="POST">
+        <form action="/user/<%= user._id %>/programs/<%= programID %>/weeks/workouts/exercises/new" method="POST">
             <main>
                 <% allWorkouts.forEach((workout, idx)=> { %>
                     <% const groupsOfExercises=(idx % 2===0)? [warmupA, accessoriesA] : [warmupB, accessoriesB] %>

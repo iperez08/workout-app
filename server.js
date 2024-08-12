@@ -10,6 +10,7 @@ import session from "express-session"
 import authCtrl from "./controllers/auth.js"
 import programCtrl from "./controllers/program.js"
 import userCtrl from "./controllers/user.js"
+import User from "./models/user.js"
 
 const port = process.env.PORT || "3000"
 
@@ -31,21 +32,30 @@ app.get("/", (req, res) => {
     res.render("landing.ejs")
 })
 
-app.get("/cycles/show", async (req, res) => {
-    res.render("cycle/show.ejs")
+app.get("/:userID/cycles/show", async (req, res) => {
+    const user = await User.findById(req.params.userID)
+    res.render("cycle/show.ejs", {
+        user
+    })
 })
 
-app.get("/cycles/index", async (req, res) => {
-    res.render("cycle/index.ejs")
+app.get("/:userID/cycles/index", async (req, res) => {
+    const user = await User.findById(req.params.userID)
+    res.render("cycle/index.ejs", {
+        user
+    })
 })
 
-app.get("/cycles/weeks/workouts/show", async (req, res) => {
-    res.render("cycle/workout/show.ejs")
+app.get("/:userID/cycles/weeks/workouts/show", async (req, res) => {
+    const user = await User.findById(req.params.userID)
+    res.render("cycle/workout/show.ejs", {
+        user
+    })
 })
 
 app.use("/auth", authCtrl)
 app.use("/user", userCtrl)
-app.use("/programs", programCtrl)
+app.use("/:userID/programs", programCtrl)
 
 app.listen(port, () => {
     console.log(`Express app is ready on port ${port}.`)

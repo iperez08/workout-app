@@ -22,3 +22,12 @@ a {
     color: #fcf4f4;
     text-decoration: none;
 }
+
+.subpart2 {
+    background-color: #b84c4c;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    color: #fcf4f4;
+}

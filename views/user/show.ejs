@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/page-layout.css">
+    <link rel="stylesheet" href="/grid-layout.css">
+</head>
+    <body>
+        <%- include("../partials/header.ejs") %>
+        <div class="grid-item">
+            <div class="subpart">
+                <a href="/user/<%= user._id %>/goals/show">Goals</a>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="subpart">
+                Username and Password
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="subpart">
+                <a href="/user/<%= user._id %>/delete">Danger Zone!</a>
+            </div>
+        </div>
+    </body>
+
+</html>

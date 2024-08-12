@@ -19,7 +19,16 @@ const userSchema = new mongoose.Schema(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Cycle"
             }
-        ]
+        ],
+        startGoal: {
+            type: String
+        },
+        strengthGoal: {
+            type: String
+        },
+        healthGoal: {
+            type: String
+        }
     }
 )
 

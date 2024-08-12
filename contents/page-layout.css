@@ -44,3 +44,8 @@ main {
     align-items: flex-start;
     flex-wrap: wrap;
 }
+
+a {
+    color: #fcf4f4;
+    text-decoration: none;
+}

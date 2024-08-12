@@ -9,35 +9,34 @@
     <link rel="stylesheet" href="/calendar.css">
 </head>
 <body>
-    <%- include("../partials/header.ejs")%>
         <main>
             <% weeks.forEach((week)=> { %>
                 <div class="grid-item">
                     <div class="subpart">Week #<%= week.weekNumber %>: <%= weekOneWorkouts[0].workoutName %></div>
                     <div><% allMainExercises[0].exerciseName %></div>
-                    <% allMainExerciseSets.forEach((set, idx) => { %>
-                        <div class="subpart">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
+                    <% allMainExerciseSets[0].forEach((set) => { %>
+                        <div class="subpart" id="subpart_3">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
                     <% }) %>
                 </div>
                 <div class="grid-item">
                     <div class="subpart">Week #<%= week.weekNumber %>: <%= weekOneWorkouts[1].workoutName %></div>
                     <div><% allMainExercises[1].exerciseName %></div>
-                    <% allMainExerciseSets.forEach((set, idx) => { %>
-                        <div class="subpart">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
+                    <% allMainExerciseSets[1].forEach((set) => { %>
+                        <div class="subpart" id="subpart_3">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
                     <% }) %>
                 </div>
                 <div class="grid-item">
                     <div class="subpart">Week #<%= week.weekNumber %>: <%= weekOneWorkouts[2].workoutName %></div>
                     <div><% allMainExercises[2].exerciseName %></div>
-                    <% allMainExerciseSets.forEach((set, idx) => { %>
-                        <div class="subpart">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
+                    <% allMainExerciseSets[2].forEach((set) => { %>
+                        <div class="subpart" id="subpart_3">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
                     <% }) %>
                 </div>
                 <div class="grid-item">
                     <div class="subpart">Week #<%= week.weekNumber %>: <%= weekOneWorkouts[3].workoutName %></div>
                     <div><% allMainExercises[3].exerciseName %></div>
-                    <% allMainExerciseSets.forEach((set, idx) => { %>
-                        <div class="subpart">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
+                    <% allMainExerciseSets[3].forEach((set) => { %>
+                        <div class="subpart" id="subpart_3">Weight: <%= set.weight %> Reps: <%= set.reps %></div>
                     <% }) %>
                 </div>
                 <% })%>

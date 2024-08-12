@@ -12,22 +12,32 @@
 </head>
 
 <body>
-  <%- include("../partials/header.ejs")%>
+  <%- include("../partials/header.ejs") %>
     <h1>Welcome to your dashboard, <%= user.username %>!</h1>
     <main>
       <div class="grid-item" id="current">
         <div class="subpart">
-          <a href="/cycles/show">Current Program</a>
+          <a href="/<%= user._id %>/cycles/show">Current Program</a>
         </div>
       </div>
       <div class="grid-item" id="previous">
         <div class="subpart">
-          <a href="/cycles/index">Workout History</a>
+          <a href="/<%= user._id %>/cycles/index">Workout History</a>
         </div>
       </div>
       <div class="grid-item">
         <div class="subpart">
-          <a href="/programs/new">Create a new Program</a>
+          <a href="/<%= user._id %>/programs/index">Start a New Cycle</a>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="subpart">
+          <a href="/user/<%= user._id %>/show">See Profile</a>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="subpart">
+          <a href="/<%= user._id %>/programs/new">Create a new Program</a>
         </div>
       </div>
     </main>

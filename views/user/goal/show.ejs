@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/page-layout.css">
+    <link rel="stylesheet" href="/grid-layout.css">
+</head>
+
+<body>
+    <%- include("../../partials/header.ejs") %>
+        <main>
+            <div class="grid-item">
+                <div class="subpart">
+                    <label for="programName">What made you want to start working out?</label>
+                </div>
+                <div>
+                    <%= user.startGoal %>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="subpart">
+                    <label for="goal">What are some strength goals you have?</label>
+                </div>
+                <div>
+                    <%= user.strengthGoal %>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="subpart">
+                    <label for="goal">What are some health goals you have?</label>
+                </div>
+                <div>
+                    <%= user.healthGoal %>
+                </div>
+            </div>
+        </main>
+        <a href="/user/<%= user._id %>/goals/new"><button>New Goals</button></a>
+        <a href="/user/<%= user._id %>/goals/edit"><button>Edit Goals</button></a>
+</body>
+
+</html>

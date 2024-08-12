@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
             _id: user._id
         }
 
-        res.redirect(`/user/dashboard`)
+        res.redirect(`/user/${user._id}/dashboard`)
 
     } catch (error) {
         console.error(error)

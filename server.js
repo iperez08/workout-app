@@ -10,6 +10,7 @@ import session from "express-session"
 import authCtrl from "./controllers/auth.js"
 import userCtrl from "./controllers/user.js"
 import programCtrl from "./controllers/program.js"
+import cycleCtrl from "./controllers/cycle.js"
 
 const port = process.env.PORT || "3000"
 
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authCtrl)
 app.use('/user', programCtrl)
 app.use('/user', userCtrl)
+app.use("/user", cycleCtrl)
 
 app.listen(port, () => {
     console.log(`Express app is ready on port ${port}.`)

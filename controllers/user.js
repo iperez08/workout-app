@@ -4,8 +4,10 @@ import User from "../models/user.js"
 
 router.get(`/:userID/dashboard`, async (req, res) => {
     const userID = req.params.userID
+    const user = await User.findById(userID)
     res.render("user/dashboard.ejs", {
-        userID
+        userID,
+        user
     })
 })
 
@@ -18,21 +20,25 @@ router.get("/:userID/show", async (req, res) => {
 
 router.get("/:userID/delete", async (req, res) => {
     const userID = req.params.userID
-    await User.findByIdAndDelete(user._id)
-    res.render("/")
+    await User.findByIdAndDelete(userID)
+    res.redirect("/")
 })
 
 router.get("/:userID/goals/show", async (req, res) => {
     const userID = req.params.userID
+    const user = await User.findById(userID)
     res.render("user/goal/show.ejs", {
-        userID
+        userID,
+        user
     })
 })
 
 router.get("/:userID/goals/edit", async (req, res) => {
     const userID = req.params.userID
+    const user = await User.findById(userID)
     res.render("user/goal/edit.ejs", {
-        userID
+        userID,
+        user
     })
 })
 
@@ -51,8 +57,10 @@ router.post("/:userID/goals/edit", async (req, res) => {
 
 router.get("/:userID/goals/new", async (req, res) => {
     const userID = req.params.userID
+    const user = await User.findById(userID)
     res.render("user/goal/new.ejs", {
-        userID
+        userID,
+        user
     })
 })
 

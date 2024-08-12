@@ -23,7 +23,9 @@ router.get("/:userID/programs/index", async (req, res) => {
 
 router.get('/:userID/programs/:programID/show', async (req, res) => {
     const userID = req.params.userID
-    const program = await Program.findById(req.params.programID)
+    const programID = req.params.programID
+    const program = await Program.findById(programID)
+    console.log(program)
     const weekPromises = program.weeks.map((week) => Week.findById(week))
     const weeks = await Promise.all(weekPromises)
     const weekOneWorkoutPromises = weeks[0].workouts.map((workout) => Workout.findById(workout))
@@ -124,7 +126,7 @@ router.get('/:userID/programs/:programID/weeks/:weekID/workouts/exercises/new', 
     const weekID = req.params.weekID
     const programID = req.params.weekID
     const program = await Program.findById(programID)
-    const weekOne = await Week.findById(program.weeks[0])
+    const weekOne = await Week.findById(weekID)
     const workoutPromises = weekOne.workouts.map((workoutId) => Workout.findById(workoutId))
     const allWorkouts = await Promise.all(workoutPromises)
     const warmupA = ["Cossack Squat", "Ab Wheel", "Bulgarian One-Leg Squat", "Band Pull-Aparts"]
@@ -148,10 +150,9 @@ router.get('/:userID/programs/:programID/weeks/:weekID/workouts/exercises/new', 
 })
 
 router.post('/:userID/programs/:programID/weeks/:weekID/workouts/exercises/new', async (req, res) => {
-    const userID = await User.findById(req.params.userID)
-    const programID = await Program.findById(req.params.programID)
+    const userID = req.params.userID
+    const programID = req.params.programID
     const { workouts } = req.body
-    console.log(workouts)
     res.redirect(`/user/${userID}/programs/${programID}/show`)
 })
 

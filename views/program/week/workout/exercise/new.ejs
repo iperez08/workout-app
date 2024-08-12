@@ -5,41 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercises</title>
-    <link rel="stylesheet" href="/four-column.css">
+    <link>
+    <link rel="stylesheet" href="/page-layout.css">
+    <link rel="stylesheet" href="/workout-edits.css">
 </head>
 
 <body>
-    <h1>Breakdown of Exercises by Components </h1>
-    <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload. Aside
-        from those three parts, the workouts will look the same each week.
-        <br><br>
-        Let's start by choosing a main workout for each day, desired duration, and what components each workout will
-        have.
-    </h3>
-    <form action="/programs/weeks/workouts/exercises/new" method="POST">
-        <main>
-            <form>
+    <%- include("../../../../partials/header.ejs") %>
+        <h1>Breakdown of Exercises by Components </h1>
+        <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload.
+            Aside from those three parts, the workouts will look the same each week.
+            <br>
+            Let's continue by choosing exercises for each component. Again, these exercises will stay the same
+            throughtout the entire cycle.
+        </h3>
+        <form action="/programs/<%= programID %>/weeks/workouts/exercises/new" method="POST">
+            <main>
                 <% allWorkouts.forEach((workout, idx)=> { %>
-                    <section>
-                        <div>
-                            <%= workout.workoutName %>
-                        </div>
-                        <div>
-                            <label for="<%= workout.workoutName %>_warmup_exercise">Which exercises do you want in your
-                                warmup component? </label>
-                            <div>
-                                <input type="checkbox" id="<%= day %>_main" name="workouts[<%= index %>][components][]" value="main" />
-                                <label for="<%= day %>_main">Main Lift</label>
+                    <% const groupsOfExercises=(idx % 2===0)? [warmupA, accessoriesA] : [warmupB, accessoriesB] %>
+                        <div clas="column">
+                            <div class="subpart">
+                                <%= workout.workoutName %>
+                            </div>
+                            <div class="subpart" id="subpart_3">
+                                <div for="<%= workout.workoutName %>_warmup_exercise">Choose Warmup Exercises:</div>
+                                <% groupsOfExercises[0].forEach((exercise)=> { %>
+                                    <div>
+                                        <input type="checkbox" checked id="<%= workout.workoutName %>_warmup_exercise"
+                                            name="workouts[<%= workout.workoutName %>][warmup][exercises][]"
+                                            value="<%= exercise %>" />
+                                        <label for="<%= workout.workoutName %>_warmup_exercise">
+                                            <%= exercise %>
+                                        </label>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <div class="subpart" id="subpart_3">
+                                <div for="<%= workout.workoutName %>_main_exercise">Choose Main Exercise:</div>
+                                <div>
+                                    <input type="checkbox" checked id="<%= workout.workoutName %>_main_exercise"
+                                        name="workouts[<%= workout.workoutName %>][main][exercises][]"
+                                        value=<%=mainExercises[idx] %>/>
+                                    <label for="<%= workout.workoutName %>_main_exercise">
+                                        <%= mainExercises[idx] %>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="subpart" id="subpart_3">
+                                <div for="<%= workout.workoutName %>_supplemental_exercise">Choose Supplemental
+                                    Exercise:</div>
+                                <div>
+                                    <input type="checkbox" checked id="<%= workout.workoutName %>_main_exercise"
+                                        name="workouts[<%= workout.workoutName %>][main][exercises][]"
+                                        value=<%=mainExercises[idx] %>/>
+                                    <label for="<%= workout.workoutName %>_main_exercise">
+                                        <%= mainExercises[idx] %>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" checked id="<%= workout.workoutName %>_supplemental_exercise"
+                                        name="workouts[<%= workout.workoutName %>][supplemental][exercises][]"
+                                        value=<%=supplementalExercises[idx] %>/>
+                                    <label for="<%= workout.workoutName %>_supplemental_exercise">
+                                        <%= supplementalExercises[idx] %>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="subpart" id="subpart_3">
+                                <div for="<%= workout.workoutName %>_accessories_exercise">Choose Accessories Exercises:
+                                </div>
+                                <% groupsOfExercises[1].forEach((exercise)=> { %>
+                                    <div>
+                                        <input type="checkbox" checked
+                                            id="<%= workout.workoutName %>_accessories_exercise"
+                                            name="workouts[<%= workout.workoutName %>][accessories][exercises][]"
+                                            value="<%= exercise %>" />
+                                        <label for="<%= workout.workoutName %>_accessories_exercise">
+                                            <%= exercise %>
+                                        </label>
+                                    </div>
+                                    <% }) %>
                             </div>
                         </div>
-                        
-                    </section>
-                    <% }) %>
-                        <button type="submit">Submit</button>
-            </form>
-        </main>
-        <button type="submit">Save All Workouts</button>
-    </form>
+                        <% }) %>
+            </main>
+            <button type="submit">Save All Workouts</button>
+        </form>
 </body>
 
 </html>

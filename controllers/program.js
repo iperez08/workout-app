@@ -3,13 +3,15 @@ const app = express()
 const router = express.Router()
 import User from "../models/user.js"
 import Program from "../models/program.js"
-import Week from "../models/workout.js"
+import Week from "../models/week.js"
 import Workout from "../models/workout.js"
 import Exercise from "../models/exercise.js"
-import Set from "../models/user.js"
+import Set from "../models/set.js"
 import { createProgram, updateProgramWithWeeks } from "../models/program-rendering/program-builder.js"
 import { updateWeeksWithWorkouts } from "../models/program-rendering/week-builder.js"
 import { updateWorkoutWithComponents } from "../models/program-rendering/workout-builders.js"
+
+
 
 // see all program templates and create new program feature
 router.get("/:userID/programs/index", async (req, res) => {
@@ -82,42 +84,42 @@ router.post("/:userID/programs/new", async (req, res) => {
 // show a specific program, which shows you the index of weeks in the program
 router.get(`/:userID/programs/:programID/weeks/:weekID/workouts/new`, async (req, res) => {
     const user = await User.findById(req.params.userID)
-    const program = await Program.findById(req.params.programID)
-    const week = await Week.findById(req.params.weekID)
-    console.log(req.params.weekID)
+    const programID = req.params.programID
+    const weekID = req.params.weekID
     res.render("program/week/workout/new.ejs", {
-        week,
-        program,
-        user
+        programID,
+        user,
+        weekID
     })
 })
 
 router.post(`/:userID/programs/:programID/weeks/:weekID/workouts/new`, async (req, res) => {
     const userID = req.params.userID
+    const programID = req.params.programID
+    const weekID = req.params.weekID
     const { workouts } = req.body
     let allWorkoutBaseData = []
     let allComponentNames = []
     const program = await Program.findById(req.params.programID)
-
+    for (const workout of workouts) {
+        const eachWorkoutBaseData = { workoutName: workout.name, duration: workout.duration }
+        const eachComponentsNames = workout.components
+        allWorkoutBaseData.push(eachWorkoutBaseData)
+        allComponentNames.push(eachComponentsNames)
+    }
     try {
-        for (const workout of workouts) {
-            const eachWorkoutBaseData = { workoutName: workout.name, duration: workout.duration }
-            const eachComponentsNames = workout.components
-            allWorkoutBaseData.push(eachWorkoutBaseData)
-            allComponentNames.push(eachComponentsNames)
-        }
         await updateWeeksWithWorkouts(program.weeks, allWorkoutBaseData)
-        const weekPromises = program.weeks.map((weekID) => Week.findById(weekID))
+        const weekPromises = program.weeks.map((weekId) => Week.findById(weekId))
         const weeks = await Promise.all(weekPromises)
         const updatePromises = weeks.map((week, idx) => updateWorkoutWithComponents(week.workouts, allComponentNames[idx]))
         await Promise.all(updatePromises)
-        res.redirect(`/${userID}/programs/${req.params.programID}/weeks/workouts/exercises/new`)
+        res.redirect(`/${userID}/programs/${programID}/weeks/${weekID}/workouts/exercises/new`)
     } catch (error) {
         console.log(`error creating workouts: ${error}`)
     }
 })
 
-router.get('/:userID/programs/:programID/weeks/workouts/exercises/new', async (req, res) => {
+router.get('/:userID/programs/:programID/weeks/:weekID/workouts/exercises/new', async (req, res) => {
     const user = await User.findById(req.params.userID)
     const program = await Program.findById(req.params.programID)
     const weekOne = await Week.findById(program.weeks[0])
@@ -144,7 +146,7 @@ router.get('/:userID/programs/:programID/weeks/workouts/exercises/new', async (r
 
 router.post('/:userID/programs/:programID/weeks/workouts/exercises/new', async (req, res) => {
     const { workouts } = req.body
-    console.log( workouts )
+    console.log(workouts)
     res.send(`this is all of the data for the mainframe: ${JSON.stringify(workouts)}`)
 })
 

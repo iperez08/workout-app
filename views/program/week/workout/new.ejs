@@ -11,14 +11,14 @@
 
 <body>
   <%- include("../../../partials/header.ejs")%>
-    <h1>Breakdown of Workouts & Components: Week #<%= week.weekNumber%>
+    <h1>Breakdown of Workouts & Components>
     </h1>
     <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload. Aside
       from those three parts, the workouts will look the same each week.
       <br><br>
       Let's start by choosing a main workout for each day, desired duration, and what components each workout will have.
     </h3>
-    <form action="/user/<%= user._id %>/programs/<%= programId %>/weeks/<%= week._id %>/workouts/new" method="POST">
+    <form action="/user/<%= user._id %>/programs/<%= programID %>/weeks/<%= weekID %>/workouts/new" method="POST">
       <main>
         <% let workoutNames=["Squat", "Bench Press" , "Deadlift" , "Overhead Press" ] %>
           <% let days=["dayOne", "dayTwo" , "dayThree" , "dayFour" ] %>

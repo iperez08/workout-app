@@ -16,7 +16,7 @@ const port = process.env.PORT || "3000"
 mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.static("contents"))
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 
 app.use(

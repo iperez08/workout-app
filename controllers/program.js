@@ -21,9 +21,9 @@ router.get("/:userID/programs/index", async (req, res) => {
     })
 })
 
-router.get('/:userID/programs/show', async (req, res) => {
+router.get('/:userID/programs/:programID/show', async (req, res) => {
     const user = await User.findById(req.params.userID)
-    const program = await Program.findById("66b991c50fca11c2f2961fed")
+    const program = await Program.findById(req.params.programID)
     const weekPromises = program.weeks.map((week) => Week.findById(week))
     const weeks = await Promise.all(weekPromises)
     const weekOneWorkoutPromises = weeks[0].workouts.map((workout) => Workout.findById(workout))
@@ -113,7 +113,7 @@ router.post(`/:userID/programs/:programID/weeks/:weekID/workouts/new`, async (re
         const weeks = await Promise.all(weekPromises)
         const updatePromises = weeks.map((week, idx) => updateWorkoutWithComponents(week.workouts, allComponentNames[idx]))
         await Promise.all(updatePromises)
-        res.redirect(`/${userID}/programs/${programID}/weeks/${weekID}/workouts/exercises/new`)
+        res.redirect(`/user/${userID}/programs/${programID}/weeks/${weekID}/workouts/exercises/new`)
     } catch (error) {
         console.log(`error creating workouts: ${error}`)
     }
@@ -145,9 +145,11 @@ router.get('/:userID/programs/:programID/weeks/:weekID/workouts/exercises/new', 
 })
 
 router.post('/:userID/programs/:programID/weeks/workouts/exercises/new', async (req, res) => {
+    const userID = await User.findById(req.params.userID)
+    const programID = await Program.findById(req.params.programID)
     const { workouts } = req.body
     console.log(workouts)
-    res.send(`this is all of the data for the mainframe: ${JSON.stringify(workouts)}`)
+    res.redirect("/user/:userID/programs/show")
 })
 
 export default router

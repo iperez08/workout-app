@@ -49,13 +49,15 @@ async function createSeriesOfExercises(series, exerciseData) {
 // Accepts object with keys matching the destructuring below
 // String, String, Number or Array of Numbers, array of exercise objects
 // returns an array of with componentID and componentName
-async function createWorkoutComponent(componentData) {
-    const {
-        componentName,
-    } = componentData
+async function createWorkoutComponents(componentNames) {
+    let componentIdsAndNames = []
     try {
-        const newComponent = await Component.create({ componentName })
-        return [newComponent._id, newComponent.componentName]
+        const componentPromises = await componentNames.map((componentName) => Component.create({ componentName }))
+        const components = await Promise.all(componentPromises)
+        components.forEach((component) => {
+            componentIdsAndNames.push([component._id, component.componentName])
+        })
+        return componentIdsAndNames
     } catch (error) {
         console.error(`error creating workout component: ${error}`)
     }
@@ -84,4 +86,4 @@ async function updateComponentWithStructureAndExercise(componentID, setStructure
         console.log(`error updating component with set structure and ${exerciseBaseData.length} exercises: ${error}`)
     }
 }
-export { createWorkoutComponent, updateComponentWithStructureAndExercise }
+export { createWorkoutComponents, updateComponentWithStructureAndExercise }

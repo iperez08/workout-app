@@ -4,28 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/three-column.css" rel="stylesheet">
-  <title><%= user.username %> Dashbaord</title>
+  <title>
+    <%= user.username %> Dashbaord
+  </title>
+  <link rel="stylesheet" href="/page-layout.css">
+  <link rel="stylesheet" href="/grid-layout.css">
 </head>
 
 <body>
-    <div>
-      <a href="/auth/logout">Logout</a>
-    </div>
-    <h1>Welcome to your workout dashboard, <%= user.username %>!</h1>
+  <%- include("../partials/header.ejs")%>
+    <h1>Welcome to your dashboard, <%= user.username %>!</h1>
     <main>
-      <div class="program" id="current">
-        Current Program
+      <div class="grid-item" id="current">
+        <div class="subpart">
+          <a href="/cycles/show">Current Program</a>
+        </div>
       </div>
-      <div class="program" id="previous">
-        Previous Programs
+      <div class="grid-item" id="previous">
+        <div class="subpart">
+          <a href="/cycles/index">Workout History</a>
+        </div>
       </div>
-      <div class="program">
-        Create a new Program
-        <button type="submit" ><a href="/programs/new">Start New Program</a></button>
+      <div class="grid-item">
+        <div class="subpart">
+          <a href="/programs/new">Create a new Program</a>
+        </div>
       </div>
     </main>
 </body>
 
 </html>
-

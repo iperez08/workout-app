@@ -1,0 +1,24 @@
+.grid-item {
+    background-color: #fcf4f4;
+    margin: 10px;
+    flex-basis: 20%;
+    min-height: 23dvh;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.subpart {
+    background-color: #b42727;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    color: #fcf4f4;
+}
+
+a {
+    color: #fcf4f4;
+    text-decoration: none;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises</title>
+    <link rel="stylesheet" href="/four-column.css">
+</head>
+
+<body>
+    <h1>Breakdown of Exercises by Components </h1>
+    <h3>Each week will see weights, volume, and/or reps increase, following principles of progressive overload. Aside
+        from those three parts, the workouts will look the same each week.
+        <br><br>
+        Let's start by choosing a main workout for each day, desired duration, and what components each workout will
+        have.
+    </h3>
+    <form action="/programs/weeks/workouts/exercises/new" method="POST">
+        <main>
+            <form>
+                <% allWorkouts.forEach((workout, idx)=> { %>
+                    <section>
+                        <div>
+                            <%= workout.workoutName %>
+                        </div>
+                        <div>
+                            <label for="<%= workout.workoutName %>_warmup_exercise">Which exercises do you want in your
+                                warmup component? </label>
+                            <div>
+                                <input type="checkbox" id="<%= day %>_main" name="workouts[<%= index %>][components][]" value="main" />
+                                <label for="<%= day %>_main">Main Lift</label>
+                            </div>
+                        </div>
+                        
+                    </section>
+                    <% }) %>
+                        <button type="submit">Submit</button>
+            </form>
+        </main>
+        <button type="submit">Save All Workouts</button>
+    </form>
+</body>
+
+</html>

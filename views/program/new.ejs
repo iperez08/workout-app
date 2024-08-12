@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a program</title>
+    <link rel="stylesheet" href="/page-layout.css">
+    <link rel="stylesheet" href="/grid-layout.css">
 </head>
+
 <body>
-    <h1>Create your own program!</h1>
-    <form action="/programs/new" method="post">
-        <div>
-            <label for="programName">What do you want to call your program?</label>
-            <input type="text" id="programName" name="programName" required>
-        </div>
-        <div>
-            <label for="goal">What is the goal of this program?</label>
-            <input type="text" id="goal" name="goal" required>
-        </div>
-        <div>
-            <label for="numberOfWeeks">Number of Weeks:</label>
-            <input type="number" id="numberOfWeeks" name="numberOfWeeks" required min="1">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+    <%- include("../partials/header.ejs")%>
+        <h1>Create your own program!</h1>
+        <form action="/programs/new" method="post">
+            <main>
+                <div class="grid-item">
+                    <div class="subpart">
+                        <label for="programName">What do you want to call your program?</label>
+                    </div>
+                    <div>
+                        <textarea id="programName" name="programName" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="subpart">
+                        <label for="goal">What is the goal of this program?</label>
+                    </div>
+                    <div>
+                        <textarea id="goal" name="goal" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="subpart">
+                        <label for="numberOfWeeks">Number of Weeks:</label>
+                    </div>
+                    <div>
+                        <input type="number" id="numberOfWeeks" name="numberOfWeeks" required min="1">
+                    </div>
+                </div>
+            </main>
+            <button type="submit">Submit</button>
+        </form>
 </body>
+
 </html>

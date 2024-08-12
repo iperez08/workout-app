@@ -10,21 +10,22 @@ async function createWeek(weekNumber) {
     }
 }
 
-// accepts weekID and array of objects
+// accepts array of weekID and array of objects
 // each object should have workoutName and duration
-async function updateWeekWithWorkouts(weekID, workoutsBaseData) {
+async function updateWeeksWithWorkouts(weekIDs, workoutsBaseData) {
     try {
-        const weekInDatabase = await Week.findById(weekID)
-        let workoutsPromises = workoutsBaseData.map(createWorkout)
-        const workouts = await Promise.all(workoutsPromises)
-        workouts.forEach((promise) => {
-            weekInDatabase.workouts.push(promise)
-            weekInDatabase.save()
+        const workoutsPromises = workoutsBaseData.map(createWorkout)
+        const workoutIDs = await Promise.all(workoutsPromises)
+        const weeksPromises = weekIDs.map((weekID) => Week.findById(weekID))
+        const weeks = await Promise.all(weeksPromises)
+        weeks.forEach((week) => {
+            week.workouts = workoutIDs
+            week.save()
         })
     } catch (error) {
-        console.log(`error updating week with ${weeksBaseData.length} workouts: ${error}`)
+        console.log(`error updating week with ${workoutsBaseData.length} workouts: ${error}`)
     }
 }
 
 
-export { createWeek, updateWeekWithWorkouts }
+export { createWeek, updateWeeksWithWorkouts }

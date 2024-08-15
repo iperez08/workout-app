@@ -3,8 +3,8 @@ const app = express()
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 dotenv.config()
-import Set from "./models/set.js"
-import Exercise from "./models/exercise.js"
+import Set from "../set.js"
+import Exercise from "../exercise.js"
 
 const port = process.env.PORT || "3000"
 
